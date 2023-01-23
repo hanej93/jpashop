@@ -49,7 +49,7 @@ public class OrderService {
     }
 
     /**
-     * 취소
+     * 주문 취소
      */
     @Transactional
     public void cancelOrder(Long orderId) {
