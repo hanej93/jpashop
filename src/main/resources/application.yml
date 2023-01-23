@@ -14,8 +14,18 @@ spring:
         format_sql: true
 
   output.ansi: enabled=always
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+    add-properties: true
+  thymeleaf:
+    cache: false
 
 logging:
+  pattern:
+#    console: '%(%d{yyyy-MM-dd HH:mm:ss} [%t] %clr(%30.30logger:%-4line){cyan}) %clr(%-5level) > %msg\n'
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
