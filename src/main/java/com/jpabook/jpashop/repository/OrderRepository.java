@@ -96,4 +96,18 @@ public class OrderRepository {
         return em.createQuery(sql, Order.class)
                 .getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        // distinct : 
+        //  - sql에서의 distinct 동작
+        //  - 조회하는 엔티티의 아이디 중복 제거
+        //  ※ sql distinct 동작 후 아이디 중복 제거를 하기 때문에 페이징 불가
+        String sql = "select distinct o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i";
+        return em.createQuery(sql, Order.class)
+                .getResultList();
+    }
 }
