@@ -28,4 +28,4 @@ logging:
 #    console: '%(%d{yyyy-MM-dd HH:mm:ss} [%t] %clr(%30.30logger:%-4line){cyan}) %clr(%-5level) > %msg\n'
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#    org.hibernate.type: trace
