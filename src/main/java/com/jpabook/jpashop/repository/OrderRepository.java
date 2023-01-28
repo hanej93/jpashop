@@ -110,4 +110,15 @@ public class OrderRepository {
         return em.createQuery(sql, Order.class)
                 .getResultList();
     }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        String sql = "select o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d";
+
+        return em.createQuery(sql, Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
