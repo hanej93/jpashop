@@ -76,4 +76,15 @@ public class OrderQueryRepository {
         return em.createQuery(sql, OrderQueryDto.class).getResultList();
     }
 
+    public List<OrderFlatDto> findAllByDto_flat() {
+        String sql = "select new com.jpabook.jpashop.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d" +
+                " join o.orderItems oi" +
+                " join oi.item i";
+
+        return em.createQuery(sql, OrderFlatDto.class)
+                .getResultList();
+    }
 }
