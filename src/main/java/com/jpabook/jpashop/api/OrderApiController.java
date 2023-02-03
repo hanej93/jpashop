@@ -10,6 +10,8 @@ import com.jpabook.jpashop.repository.order.query.OrderFlatDto;
 import com.jpabook.jpashop.repository.order.query.OrderItemQueryDto;
 import com.jpabook.jpashop.repository.order.query.OrderQueryDto;
 import com.jpabook.jpashop.repository.order.query.OrderQueryRepository;
+import com.jpabook.jpashop.service.query.OrderDto;
+import com.jpabook.jpashop.service.query.OrderQueryService;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -54,13 +56,14 @@ public class OrderApiController {
         return result;
     }
 
+    private final OrderQueryService orderQueryService;
+    
+    // open-session-in-view 설정을 끄면 트랜잭션안에서만 영속성 컨텍스트가 존재하게 되어
+    // 지연 로딩이 트랜잭션 바깥(컨트롤러)로 넘어가면 발생하지 않는데,
+    // 기능을 서비스내의 트랜잭션으로 묶었기 때문에 하나의 서비스안에서 지연로딩이 발생되어 문제가 되지 않음
     @GetMapping("/api/v3/orders")
-    public List<OrderDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
-        List<OrderDto> result = orders.stream()
-                .map(OrderDto::new)
-                .collect(toList());
-        return result;
+    public List<com.jpabook.jpashop.service.query.OrderDto> ordersV3() {
+        return orderQueryService.ordersV3();
     }
 
     @GetMapping("/api/v3.1/orders")
